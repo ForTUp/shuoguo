@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsg.school.dao.SchoolPoMapper" >
+  <resultMap id="BaseResultMap" type="com.dsg.school.model.SchoolPo" >
+    <id column="school_id" property="schoolId" jdbcType="VARCHAR" />
+    <result column="school_name" property="schoolName" jdbcType="VARCHAR" />
+    <result column="school_database_id" property="schoolDatabaseId" jdbcType="INTEGER" />
+    <result column="school_db_name" property="schoolDbName" jdbcType="VARCHAR" />
+    <result column="entity_type" property="entityType" jdbcType="VARCHAR" />
+    <result column="expire_date" property="expireDate" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="VARCHAR" />
+    <result column="school_place" property="schoolPlace" jdbcType="VARCHAR" />
+    <result column="school_type" property="schoolType" jdbcType="VARCHAR" />
+    <result column="school_logo" property="schoolLogo" jdbcType="VARCHAR" />
+    <result column="school_homepage" property="schoolHomepage" jdbcType="VARCHAR" />
+    <result column="contact_person" property="contactPerson" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="user_uid" property="userUid" jdbcType="VARCHAR" />
+    <result column="wx_mp_uid" property="wxMpUid" jdbcType="VARCHAR" />
+    <result column="ex_info_01" property="exInfo01" jdbcType="VARCHAR" />
+    <result column="ex_info_02" property="exInfo02" jdbcType="VARCHAR" />
+    <result column="ex_info_03" property="exInfo03" jdbcType="VARCHAR" />
+    <result column="ex_info_04" property="exInfo04" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dsg.school.model.SchoolPo" extends="BaseResultMap" >
+    <result column="school_intro" property="schoolIntro" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    school_id, school_name, school_database_id, school_db_name, entity_type, expire_date, 
+    province_id, city_id, area_id, school_place, school_type, school_logo, school_homepage, 
+    contact_person, contact_phone, user_uid, wx_mp_uid, ex_info_01, ex_info_02, ex_info_03, 
+    ex_info_04, create_time, creator, modify_time, modifier, remarks
+  </sql>
+  <sql id="Blob_Column_List" >
+    school_intro
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sbr_school_info
+   	where school_id=#{schoolId}
+  </select>
+  
+   <select id="selectList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sbr_school_info
+  </select>
+  
+  <select id="selectListProp" resultMap="ResultMapWithBLOBs" parameterType="com.dsg.school.dao.SchoolPoMapper" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sbr_school_info
+    where 1=1 
+    <if test="schoolName != null" >
+       and school_name like concat('%',#{schoolName},'%') 
+    </if>
+  </select>
+  
+  <select id="selectListPage" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sbr_school_info
+    where 1=1 
+    <if test="schoolName != null" >
+       and school_name like concat('%',#{schoolName},'%') 
+    </if>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sbr_school_info
+    where school_id = #{schoolId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.dsg.school.model.SchoolPo" >
+    insert into sbr_school_info (school_id, school_name, school_database_id, 
+      school_db_name, entity_type, expire_date, 
+      province_id, city_id, area_id, 
+      school_place, school_type, school_logo, 
+      school_homepage, contact_person, contact_phone, 
+      user_uid, wx_mp_uid, ex_info_01, 
+      ex_info_02, ex_info_03, ex_info_04, 
+      create_time, creator, modify_time, 
+      modifier, remarks, school_intro
+      )
+    values (#{schoolId,jdbcType=VARCHAR}, #{schoolName,jdbcType=VARCHAR}, #{schoolDatabaseId,jdbcType=INTEGER}, 
+      #{schoolDbName,jdbcType=VARCHAR}, #{entityType,jdbcType=VARCHAR}, #{expireDate,jdbcType=VARCHAR}, 
+      #{provinceId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, 
+      #{schoolPlace,jdbcType=VARCHAR}, #{schoolType,jdbcType=VARCHAR}, #{schoolLogo,jdbcType=VARCHAR}, 
+      #{schoolHomepage,jdbcType=VARCHAR}, #{contactPerson,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{userUid,jdbcType=VARCHAR}, #{wxMpUid,jdbcType=VARCHAR}, #{exInfo01,jdbcType=VARCHAR}, 
+      #{exInfo02,jdbcType=VARCHAR}, #{exInfo03,jdbcType=VARCHAR}, #{exInfo04,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{schoolIntro,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsg.school.model.SchoolPo" >
+    insert into sbr_school_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="schoolName != null" >
+        school_name,
+      </if>
+      <if test="schoolDatabaseId != null" >
+        school_database_id,
+      </if>
+      <if test="schoolDbName != null" >
+        school_db_name,
+      </if>
+      <if test="entityType != null" >
+        entity_type,
+      </if>
+      <if test="expireDate != null" >
+        expire_date,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="schoolPlace != null" >
+        school_place,
+      </if>
+      <if test="schoolType != null" >
+        school_type,
+      </if>
+      <if test="schoolLogo != null" >
+        school_logo,
+      </if>
+      <if test="schoolHomepage != null" >
+        school_homepage,
+      </if>
+      <if test="contactPerson != null" >
+        contact_person,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="userUid != null" >
+        user_uid,
+      </if>
+      <if test="wxMpUid != null" >
+        wx_mp_uid,
+      </if>
+      <if test="exInfo01 != null" >
+        ex_info_01,
+      </if>
+      <if test="exInfo02 != null" >
+        ex_info_02,
+      </if>
+      <if test="exInfo03 != null" >
+        ex_info_03,
+      </if>
+      <if test="exInfo04 != null" >
+        ex_info_04,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="schoolIntro != null" >
+        school_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null" >
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolDatabaseId != null" >
+        #{schoolDatabaseId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolDbName != null" >
+        #{schoolDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="entityType != null" >
+        #{entityType,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolPlace != null" >
+        #{schoolPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolType != null" >
+        #{schoolType,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolLogo != null" >
+        #{schoolLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolHomepage != null" >
+        #{schoolHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null" >
+        #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null" >
+        #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxMpUid != null" >
+        #{wxMpUid,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo01 != null" >
+        #{exInfo01,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo02 != null" >
+        #{exInfo02,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo03 != null" >
+        #{exInfo03,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo04 != null" >
+        #{exInfo04,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolIntro != null" >
+        #{schoolIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsg.school.model.SchoolPo" >
+    update sbr_school_info
+    <set >
+      <if test="schoolName != null" >
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolDatabaseId != null" >
+        school_database_id = #{schoolDatabaseId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolDbName != null" >
+        school_db_name = #{schoolDbName,jdbcType=VARCHAR},
+      </if>
+      <if test="entityType != null" >
+        entity_type = #{entityType,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolPlace != null" >
+        school_place = #{schoolPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolType != null" >
+        school_type = #{schoolType,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolLogo != null" >
+        school_logo = #{schoolLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolHomepage != null" >
+        school_homepage = #{schoolHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null" >
+        contact_person = #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null" >
+        user_uid = #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxMpUid != null" >
+        wx_mp_uid = #{wxMpUid,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo01 != null" >
+        ex_info_01 = #{exInfo01,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo02 != null" >
+        ex_info_02 = #{exInfo02,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo03 != null" >
+        ex_info_03 = #{exInfo03,jdbcType=VARCHAR},
+      </if>
+      <if test="exInfo04 != null" >
+        ex_info_04 = #{exInfo04,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolIntro != null" >
+        school_intro = #{schoolIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where school_id = #{schoolId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dsg.school.model.SchoolPo" >
+    update sbr_school_info
+    set school_name = #{schoolName,jdbcType=VARCHAR},
+      school_database_id = #{schoolDatabaseId,jdbcType=INTEGER},
+      school_db_name = #{schoolDbName,jdbcType=VARCHAR},
+      entity_type = #{entityType,jdbcType=VARCHAR},
+      expire_date = #{expireDate,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      school_place = #{schoolPlace,jdbcType=VARCHAR},
+      school_type = #{schoolType,jdbcType=VARCHAR},
+      school_logo = #{schoolLogo,jdbcType=VARCHAR},
+      school_homepage = #{schoolHomepage,jdbcType=VARCHAR},
+      contact_person = #{contactPerson,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      user_uid = #{userUid,jdbcType=VARCHAR},
+      wx_mp_uid = #{wxMpUid,jdbcType=VARCHAR},
+      ex_info_01 = #{exInfo01,jdbcType=VARCHAR},
+      ex_info_02 = #{exInfo02,jdbcType=VARCHAR},
+      ex_info_03 = #{exInfo03,jdbcType=VARCHAR},
+      ex_info_04 = #{exInfo04,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      school_intro = #{schoolIntro,jdbcType=LONGVARCHAR}
+    where school_id = #{schoolId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsg.school.model.SchoolPo" >
+    update sbr_school_info
+    set school_name = #{schoolName,jdbcType=VARCHAR},
+      school_database_id = #{schoolDatabaseId,jdbcType=INTEGER},
+      school_db_name = #{schoolDbName,jdbcType=VARCHAR},
+      entity_type = #{entityType,jdbcType=VARCHAR},
+      expire_date = #{expireDate,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      school_place = #{schoolPlace,jdbcType=VARCHAR},
+      school_type = #{schoolType,jdbcType=VARCHAR},
+      school_logo = #{schoolLogo,jdbcType=VARCHAR},
+      school_homepage = #{schoolHomepage,jdbcType=VARCHAR},
+      contact_person = #{contactPerson,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      user_uid = #{userUid,jdbcType=VARCHAR},
+      wx_mp_uid = #{wxMpUid,jdbcType=VARCHAR},
+      ex_info_01 = #{exInfo01,jdbcType=VARCHAR},
+      ex_info_02 = #{exInfo02,jdbcType=VARCHAR},
+      ex_info_03 = #{exInfo03,jdbcType=VARCHAR},
+      ex_info_04 = #{exInfo04,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where school_id = #{schoolId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsg.school.dao.DeptPoMapper" >
+  <resultMap id="BaseResultMap" type="com.dsg.school.model.DeptPo" >
+    <id column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="school_id" property="schoolId" jdbcType="VARCHAR" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="class_room" property="classRoom" jdbcType="VARCHAR" />
+    <result column="dept_org_type" property="deptOrgType" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="VARCHAR" />
+    <result column="dept_status" property="deptStatus" jdbcType="VARCHAR" />
+    <result column="dept_status_time" property="deptStatusTime" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="grade_name" property="gradeName" jdbcType="VARCHAR" />
+    <result column="grade_id" property="gradeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dsg.school.model.DeptPo" extends="BaseResultMap" >
+    <result column="dept_info" property="deptInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dept_id, school_id, dept_name, class_room, dept_org_type, is_active, dept_status, 
+    dept_status_time, is_delete, create_time, creator, modify_time, modifier, remarks, 
+    grade_name, grade_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    dept_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sbr_dept_info
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sbr_dept_info
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.dsg.school.model.DeptPo" >
+    insert into sbr_dept_info (dept_id, school_id, dept_name, 
+      class_room, dept_org_type, is_active, 
+      dept_status, dept_status_time, is_delete, 
+      create_time, creator, modify_time, 
+      modifier, remarks, grade_name, 
+      grade_id, dept_info)
+    values (#{deptId,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{classRoom,jdbcType=VARCHAR}, #{deptOrgType,jdbcType=VARCHAR}, #{isActive,jdbcType=VARCHAR}, 
+      #{deptStatus,jdbcType=VARCHAR}, #{deptStatusTime,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{gradeName,jdbcType=VARCHAR}, 
+      #{gradeId,jdbcType=VARCHAR}, #{deptInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsg.school.model.DeptPo" >
+    insert into sbr_dept_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="classRoom != null" >
+        class_room,
+      </if>
+      <if test="deptOrgType != null" >
+        dept_org_type,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="deptStatus != null" >
+        dept_status,
+      </if>
+      <if test="deptStatusTime != null" >
+        dept_status_time,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="gradeName != null" >
+        grade_name,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="deptInfo != null" >
+        dept_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="classRoom != null" >
+        #{classRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="deptOrgType != null" >
+        #{deptOrgType,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=VARCHAR},
+      </if>
+      <if test="deptStatus != null" >
+        #{deptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deptStatusTime != null" >
+        #{deptStatusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptInfo != null" >
+        #{deptInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsg.school.model.DeptPo" >
+    update sbr_dept_info
+    <set >
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="classRoom != null" >
+        class_room = #{classRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="deptOrgType != null" >
+        dept_org_type = #{deptOrgType,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=VARCHAR},
+      </if>
+      <if test="deptStatus != null" >
+        dept_status = #{deptStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deptStatusTime != null" >
+        dept_status_time = #{deptStatusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeName != null" >
+        grade_name = #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptInfo != null" >
+        dept_info = #{deptInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dsg.school.model.DeptPo" >
+    update sbr_dept_info
+    set school_id = #{schoolId,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      class_room = #{classRoom,jdbcType=VARCHAR},
+      dept_org_type = #{deptOrgType,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=VARCHAR},
+      dept_status = #{deptStatus,jdbcType=VARCHAR},
+      dept_status_time = #{deptStatusTime,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      grade_name = #{gradeName,jdbcType=VARCHAR},
+      grade_id = #{gradeId,jdbcType=VARCHAR},
+      dept_info = #{deptInfo,jdbcType=LONGVARCHAR}
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsg.school.model.DeptPo" >
+    update sbr_dept_info
+    set school_id = #{schoolId,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      class_room = #{classRoom,jdbcType=VARCHAR},
+      dept_org_type = #{deptOrgType,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=VARCHAR},
+      dept_status = #{deptStatus,jdbcType=VARCHAR},
+      dept_status_time = #{deptStatusTime,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      grade_name = #{gradeName,jdbcType=VARCHAR},
+      grade_id = #{gradeId,jdbcType=VARCHAR}
+    where dept_id = #{deptId,jdbcType=VARCHAR}
+  </update>
+</mapper>
