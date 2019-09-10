@@ -50,15 +50,17 @@
    	where school_id=#{schoolId}
   </select>
   
-   <select id="selectList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+   <!-- <select id="selectList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from sbr_school_info
-  </select>
+    order by create_time desc
+    
+  </select> -->
   
-  <select id="selectListProp" resultMap="ResultMapWithBLOBs" parameterType="com.dsg.school.dao.SchoolPoMapper" >
+  <!-- <select id="selectListProp" resultMap="ResultMapWithBLOBs" parameterType="com.dsg.school.dao.SchoolPoMapper" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -68,7 +70,7 @@
     <if test="schoolName != null" >
        and school_name like concat('%',#{schoolName},'%') 
     </if>
-  </select>
+  </select> -->
   
   <select id="selectListPage" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
@@ -80,6 +82,7 @@
     <if test="schoolName != null" >
        and school_name like concat('%',#{schoolName},'%') 
     </if>
+    order by create_time desc
   </select>
   
   

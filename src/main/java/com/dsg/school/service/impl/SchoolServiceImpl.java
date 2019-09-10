@@ -1,5 +1,7 @@
 package com.dsg.school.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -35,9 +37,11 @@ public class SchoolServiceImpl implements ISchoolService{
 
 	@Override
 	public int addSchool(SchoolPo schoolPo) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		schoolPo.setSchoolId(java.util.UUID.randomUUID().toString().replaceAll("-", ""));
+		schoolPo.setCreateTime(date);
 		return schoolPOMapper.insert(schoolPo);
-		
 	}
 
 	@Override

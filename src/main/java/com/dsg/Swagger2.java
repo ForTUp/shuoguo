@@ -22,7 +22,7 @@ public class Swagger2 {
       return new Docket(DocumentationType.SWAGGER_2)
               .apiInfo(apiInfo())
               .select()
-              //为当前包路径
+              //为当前包路径WW
               .apis(RequestHandlerSelectors.basePackage("com.dsg.school.controller"))
               .paths(PathSelectors.any())
               .build();
@@ -33,7 +33,7 @@ public class Swagger2 {
               //页面标题
               .title("Spring Boot 测试使用 Swagger2 构建RESTful API")
               //创建人
-              .contact(new Contact("MarryFeng", "http://www.baidu.com", ""))
+             //.contact(new Contact("MarryFeng", "http://www.baidu.com", ""))
               //版本号
               .version("1.0")
               //描述

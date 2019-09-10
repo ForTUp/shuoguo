@@ -34,12 +34,19 @@ public class SchoolController {
 	
 	@ApiOperation(value = "查询所有学校信息",notes = "查询所有学校信息")
 	@RequestMapping(value = "schoolList.json",method = RequestMethod.GET)
-	public Object getSchoolList() {
+	public Object getSchoolList(
+			@RequestParam(value = "currentPage",required = true) Integer currentPage,
+			@RequestParam(value = "pagesize",required = true) Integer pagesize
+			) {
 
-		 Map<String, Object> map = new HashMap<String, Object>(); 
-		 List<SchoolPo> list = schoolService.selectList(); 
-		 map.put("list", list); 
-		 map.put("code", 0);
+		 PageHelper.startPage(currentPage,pagesize);
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<SchoolPo> list = schoolService.selectList(); 
+			PageInfo<SchoolPo> appsPageInfo	= new PageInfo<SchoolPo>(list);
+			 map.put("list", list); 
+			 map.put("code", 0);
+			 map.put("total", appsPageInfo.getTotal());
+		 //map.put("data", list);
 		return map;
 	}
 	
@@ -101,7 +108,7 @@ public class SchoolController {
 	
 	/**
 	 * 
-	 * @param schoolName 搜索条件
+	 * @param schoolPo 搜索条件
 	 * @param currentPage 当前页面
 	 * @param pagesize	显示条数
 	 * @return
@@ -112,14 +119,6 @@ public class SchoolController {
 			@ApiImplicitParam(name = "currentPage",value = "当前页面",paramType = "query",required = true,dataType = "int"),
 			@ApiImplicitParam(name = "pagesize",value = "显示条数",paramType = "query",required = true,dataType = "int")
 	})
-	
-	/**
-	 * 
-	 * @param schoolPo
-	 * @param currentPage
-	 * @param pagesize
-	 * @return
-	 */
 	@RequestMapping(value = "selectSchoolListPage",method = RequestMethod.GET)
 	public Object selectSchoolListPage(
 			@RequestBody(required = false) SchoolPo schoolPo,
