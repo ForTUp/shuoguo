@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
+import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 
 @RestController
 @RequestMapping("/school")
@@ -32,43 +33,59 @@ public class SchoolController {
 	@Resource
 	private ISchoolService schoolService;
 	
-	@ApiOperation(value = "查询所有学校信息",notes = "查询所有学校信息")
+	@ApiOperation(value = "根据学校名称查询所有学校信息",notes = "根据学校名称查询所有学校信息")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "schoolName",value = "学校名称",paramType = "query",required = false,dataType = "String"),	
+		@ApiImplicitParam(name = "currentPage",value = "当前页面",paramType = "query",required = true,dataType = "int"),
+		@ApiImplicitParam(name = "pagesize",value = "显示条数",paramType = "query",required = true,dataType = "int")
+	})
 	@RequestMapping(value = "schoolList.json",method = RequestMethod.GET)
 	public Object getSchoolList(
 			@RequestParam(value = "currentPage",required = true) Integer currentPage,
-			@RequestParam(value = "pagesize",required = true) Integer pagesize
+			@RequestParam(value = "pagesize",required = true) Integer pagesize,
+			@RequestParam(value = "schoolName", required = false) String  schoolName
 			) {
 
-		 PageHelper.startPage(currentPage,pagesize);
+		 	SchoolPo schoolPo = new SchoolPo();
+		 	if (schoolName != null && schoolName!="") {
+				schoolPo.setSchoolName(schoolName);
+			}
+		
+		 	PageHelper.startPage(currentPage,pagesize);
 			Map<String, Object> map = new HashMap<String, Object>();
-			List<SchoolPo> list = schoolService.selectList(); 
+			List<SchoolPo> list = schoolService.selectListProp(schoolPo);; 
 			PageInfo<SchoolPo> appsPageInfo	= new PageInfo<SchoolPo>(list);
 			 map.put("list", list); 
 			 map.put("code", 0);
 			 map.put("total", appsPageInfo.getTotal());
-		 //map.put("data", list);
 		return map;
 	}
 	
+	/*
 	@ApiOperation(value = "根据学校名称查询所有学校信息",notes = "根据学校名称查询所有学校信息")
-	@ApiImplicitParam(name = "schoolName",value = "学校名称",paramType = "path",required = false,dataType = "String")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "schoolPo",value = "学校对象",paramType = "query",required = false,dataType = "com.dsg.school.model.SchoolPo"),	
+		@ApiImplicitParam(name = "currentPage",value = "当前页面",paramType = "query",required = true,dataType = "int"),
+		@ApiImplicitParam(name = "pagesize",value = "显示条数",paramType = "query",required = true,dataType = "int")
+	})
 	@RequestMapping(value = "selectListProp.json",method = RequestMethod.POST)
 	public Object getSchoolListByName(
-				@RequestParam(value = "schoolName",required = false ) String schoolName
+			@RequestParam(value = "currentPage",required = true) Integer currentPage,
+			@RequestParam(value = "pagesize",required = true) Integer pagesize,
+			@RequestBody(required = false) SchoolPo schoolPo
 				){
-		SchoolPo schoolPo = new SchoolPo();
-		if (schoolName!=null && ""!=schoolName) {
-			schoolPo.setSchoolName(schoolName);
-		}
-		
-		  System.out.println(schoolName); 
+		  PageHelper.startPage(currentPage, pagesize);
 		  Map<String, Object> map = new HashMap<String,Object>(); 
 		  List<SchoolPo> list = schoolService.selectListProp(schoolPo);
+		  PageInfo<SchoolPo> appsPageInfo = new PageInfo<SchoolPo>();
+		  System.out.println(appsPageInfo.getTotal());
 		  map.put("list", list); 
 		  map.put("code", 0);
+		  map.put("total", appsPageInfo.getTotal());
 		 
 		return map;
 	}
+	*/
 	
 	/*
 	 * schoolName: '', schoolPlace: '', schoolIntro: '', contactPerson: '',
@@ -106,6 +123,7 @@ public class SchoolController {
 		return schoolService.updateSchool(schoolPo);
 	}
 	
+
 	/**
 	 * 
 	 * @param schoolPo 搜索条件
@@ -113,6 +131,7 @@ public class SchoolController {
 	 * @param pagesize	显示条数
 	 * @return
 	 */
+	/*
 	@ApiOperation(value = "模糊加后台分页学校列表",notes = "模糊加后台分页学校列表")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "schoolPo",value = "学校对象",paramType = "query",required = false,dataType = "com.dsg.school.model.SchoolPo"),	
@@ -125,7 +144,6 @@ public class SchoolController {
 			@RequestParam(value = "currentPage",required = true) Integer currentPage,
 			@RequestParam(value = "pagesize",required = true) Integer pagesize
 			) {
-		//PageHelper.startPage(Integer.parseInt(currentPage),Integer.parseInt(pagesize));
 		PageHelper.startPage(currentPage,pagesize);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<SchoolPo> list = schoolService.selectListProp(schoolPo);
@@ -135,4 +153,5 @@ public class SchoolController {
 		System.out.println(JSONObject.fromObject(map));
 		return map;
 	}
+	*/
 }

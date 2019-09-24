@@ -86,10 +86,15 @@
   </select>
   
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+<!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sbr_school_info
     where school_id = #{schoolId,jdbcType=VARCHAR}
-  </delete>
+  </delete> -->
+  
+  <select id="deleteByPrimaryKey" parameterType="java.lang.String"  resultType="java.lang.Integer">
+  	select f_opr_school_del(#{schoolId,jdbcType=VARCHAR})
+  </select>
+  
   <insert id="insert" parameterType="com.dsg.school.model.SchoolPo" >
     insert into sbr_school_info (school_id, school_name, school_database_id, 
       school_db_name, entity_type, expire_date, 
