@@ -36,16 +36,22 @@ public class SchoolController {
 	@ApiOperation(value = "根据学校名称查询所有学校信息",notes = "根据学校名称查询所有学校信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "schoolName",value = "学校名称",paramType = "query",required = false,dataType = "String"),	
-		@ApiImplicitParam(name = "currentPage",value = "当前页面",paramType = "query",required = true,dataType = "int"),
-		@ApiImplicitParam(name = "pagesize",value = "显示条数",paramType = "query",required = true,dataType = "int")
+		@ApiImplicitParam(name = "currentPage",value = "当前页面",paramType = "query",required = false,dataType = "int"),
+		@ApiImplicitParam(name = "pagesize",value = "显示条数",paramType = "query",required = false,dataType = "int")
 	})
 	@RequestMapping(value = "schoolList.json",method = RequestMethod.GET)
 	public Object getSchoolList(
-			@RequestParam(value = "currentPage",required = true) Integer currentPage,
-			@RequestParam(value = "pagesize",required = true) Integer pagesize,
+			@RequestParam(value = "currentPage",required = false) Integer currentPage,
+			@RequestParam(value = "pagesize",required = false) Integer pagesize,
 			@RequestParam(value = "schoolName", required = false) String  schoolName
 			) {
 
+			if (currentPage == null) {
+				currentPage=1;
+			}
+			if (pagesize == null) {
+				pagesize=5;
+			}
 		 	SchoolPo schoolPo = new SchoolPo();
 		 	if (schoolName != null && schoolName!="") {
 				schoolPo.setSchoolName(schoolName);

@@ -19,6 +19,7 @@ public interface SchoolPoMapper {
 	
 	
     int deleteByPrimaryKey(String schoolId);
+    int deleteByFun(String schoolId);
 
     int insert(SchoolPo record);
 

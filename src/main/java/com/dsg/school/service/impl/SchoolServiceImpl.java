@@ -46,6 +46,7 @@ public class SchoolServiceImpl implements ISchoolService{
 
 	@Override
 	public Object deleteSchoolById(String schoolId) {
+		//return schoolPOMapper.deleteByFun(schoolId);
 		return schoolPOMapper.deleteByPrimaryKey(schoolId);
 	}
 
